@@ -1,0 +1,5 @@
+ip1 - - [24/Apr/2011:07:54:28 -0400] "GET /~strabal/grease/photo9/T927-7.jpg HTTP/1.1" 200 3307 "-" "Mozilla/5.0 (compatible; YandexImages/3.0; +http://yandex.com/bots)"
+ip67 - - [24/Apr/2011:07:57:28 -0400] "GET /sunFAQ/serial HTTP/1.1" 301 321 "-" "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)"
+ip68 - - [24/Apr/2011:07:57:31 -0400] "GET /sunFAQ/serial/ HTTP/1.1" 200 13600 "-" "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)"
+ip1 - - [24/Apr/2011:07:58:22 -0400] "GET /~strabal/grease/photo2/T910-7.jpg HTTP/1.1" 200 6187 "-" "Mozilla/5.0 (compatible; YandexImages/3.0; +http://yandex.com/bots)"
+ip1 - - [24/Apr/2011:08:02:28 -0400] "GET /~strabal/grease/photo2/910-11.jpg HTTP/1.1" 200 53694 "-" "Mozilla/5.0 (compatible; YandexImages/3.0; +http://yandex.com/bots)"

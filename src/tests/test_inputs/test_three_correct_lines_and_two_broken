@@ -1,0 +1,5 @@
+ip60 - - [24/Apr/2011:08:34:18 -0400] "GET / HTTP/1.1" 200 12550 "-" "Baiduspider+(+http://www.baidu.com/search/spider.htm)"
+ip25 - - [24/Apr/2011:08:34:42 -0400] "GET / HTTP/1.1" 200 12550 "-" "Baiduspider+(+http://www.baidu.com/search/spider.htm)"
+ip1 - [24/Apr/2011:08:36:01 -0400] "GET /~strabal/grease/photo1/T97-7.jpg HTTP/1.1" 200 6106 "-" "Mozilla/5.0 (compatible; YandexImages/3.0; +http://yandex.com/bots)"
+ip81 - - [24/Apr/2011:08:38:21 -0400] "GET /robots.txt HTTP/1.1" 404 286 "-" "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
+ip81 - - [24/Apr/2011:08:38:55 -0400] "GET /docs/rhl-rg-6.1en/ch-raid.html HTTP/1.1" 306 "-" "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
