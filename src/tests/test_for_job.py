@@ -3,6 +3,7 @@ This is a unittest testcase for the job BytesCounterJob.
 """
 
 import unittest
+import os
 
 from io import BytesIO
 
@@ -11,9 +12,11 @@ from bytes_counter_job import BytesCounterJob
 
 class JobTest(unittest.TestCase):
     def setUp(self):
-        with open('test_inputs\\test_five_correct_lines', 'rb') as file:
+        directory = os.path.dirname(__file__)
+        path = os.path.abspath(directory)
+        with open(os.path.join(path, 'test_inputs', 'test_five_correct_lines'), 'rb') as file:
             self.first_test_stdin = BytesIO(file.read())
-        with open('test_inputs\\test_three_correct_lines_and_two_broken', 'rb') as file:
+        with open(os.path.join(path, 'test_inputs', 'test_three_correct_lines_and_two_broken'), 'rb') as file:
             self.second_test_stdin = BytesIO(file.read())
 
     def test_five_correct_lines(self):
