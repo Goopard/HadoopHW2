@@ -3,7 +3,7 @@ This is a unittest test case for the reducer function of the job BytesCounterJob
 """
 
 import unittest
-from bytes_counter_job import BytesCounterJob
+from bytes_counter_job import BytesCounterJob, ValueFormat
 
 
 class ReducerTests(unittest.TestCase):
@@ -12,7 +12,7 @@ class ReducerTests(unittest.TestCase):
         This test checks if the reducer works correctly for some simple input data of 2 single requests.
         """
         key = 'ip1'
-        values = [(100, 1), (200, 1)]
+        values = [ValueFormat(100, 1), ValueFormat(200, 1)]
         test_job = BytesCounterJob()
         self.assertEqual(next(test_job.reducer(key, values)), (None, "ip1,150.0,300"))
 
@@ -22,7 +22,7 @@ class ReducerTests(unittest.TestCase):
         3 multiple ones.
         """
         key = 'ip1'
-        values = [(500, 5), (600, 6), (100, 1), (300, 8)]
+        values = [ValueFormat(500, 5), ValueFormat(600, 6), ValueFormat(100, 1), ValueFormat(300, 8)]
         test_job = BytesCounterJob()
         self.assertEqual(next(test_job.reducer(key, values)), (None, "ip1,75.0,1500"))
 

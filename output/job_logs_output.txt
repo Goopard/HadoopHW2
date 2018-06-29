@@ -1,4 +1,4 @@
-C:\Users\nicka\PycharmProjects\hadoop_hw2\src>ssh root@localhost -p 2222 command "python3 /usr/jobs/auto_test/test.py -r hadoop hdfs:///user/raj_ops/test.txt --hadoop-streaming-jar=/usr/hdp/2.6.4.0-91/hadoop-mapreduce/hadoop-streaming.jar > /usr/jobs/auto_test/output.txt --snappy -o hdfs:///user/raj_ops/output"
+C:\Users\nicka\PycharmProjects\hadoop_hw2\src>ssh root@localhost -p 2222 command "python3 /usr/jobs/auto_test/test.py -r hadoop hdfs:///user/raj_ops/test.txt --hadoop-streaming-jar=/usr/hdp/2.6.4.0-91/hadoop-mapreduce/hadoop-streaming.jar > /usr/jobs/auto_test/output.csv"
 configure_options() is deprecated and will be removed in v0.7.0; please use configure_args() instead.
 add_passthrough_option() is deprecated and will be removed in v0.7.0. Use add_passthru_arg() instead.
 No configs found; falling back on auto-configuration
@@ -6,31 +6,26 @@ No configs specified for hadoop runner
 Looking for hadoop binary in $PATH...
 Found hadoop binary: /usr/bin/hadoop
 Using Hadoop version 2.7.3.2.6.4.0
-Creating temp directory /tmp/test.root.20180624.084839.416145
-Copying local files to hdfs:///user/root/tmp/mrjob/test.root.20180624.084839.416145/files/...
-Detected hadoop configuration property names that do not match hadoop version 2.7.3.2.6.4.0:
-The have been translated as follows
- mapred.output.compress: mapreduce.output.fileoutputformat.compress
-mapred.output.compression.codec: mapreduce.output.fileoutputformat.compress.codec
-mapred.output.compression.type: mapreduce.output.fileoutputformat.compress.type
+Creating temp directory /tmp/test.root.20180624.221303.993150
+Copying local files to hdfs:///user/root/tmp/mrjob/test.root.20180624.221303.993150/files/...
 Running step 1 of 1...
-  packageJobJar: [] [/usr/hdp/2.6.4.0-91/hadoop-mapreduce/hadoop-streaming-2.7.3.2.6.4.0-91.jar] /tmp/streamjob5890937830029014112.jar tmpDir=null
+  packageJobJar: [] [/usr/hdp/2.6.4.0-91/hadoop-mapreduce/hadoop-streaming-2.7.3.2.6.4.0-91.jar] /tmp/streamjob5897338180823224025.jar tmpDir=null
   Connecting to ResourceManager at sandbox-hdp.hortonworks.com/172.17.0.2:8032
   Connecting to Application History server at sandbox-hdp.hortonworks.com/172.17.0.2:10200
   Connecting to ResourceManager at sandbox-hdp.hortonworks.com/172.17.0.2:8032
   Connecting to Application History server at sandbox-hdp.hortonworks.com/172.17.0.2:10200
   Total input paths to process : 1
   number of splits:2
-  Submitting tokens for job: job_1529661031824_0042
-  Submitted application application_1529661031824_0042
-  The url to track the job: http://sandbox-hdp.hortonworks.com:8088/proxy/application_1529661031824_0042/
-  Running job: job_1529661031824_0042
-  Job job_1529661031824_0042 running in uber mode : false
+  Submitting tokens for job: job_1529661031824_0052
+  Submitted application application_1529661031824_0052
+  The url to track the job: http://sandbox-hdp.hortonworks.com:8088/proxy/application_1529661031824_0052/
+  Running job: job_1529661031824_0052
+  Job job_1529661031824_0052 running in uber mode : false
    map 0% reduce 0%
    map 100% reduce 0%
    map 100% reduce 100%
-  Job job_1529661031824_0042 completed successfully
-  Output directory: hdfs:///user/raj_ops/output
+  Job job_1529661031824_0052 completed successfully
+  Output directory: hdfs:///user/root/tmp/mrjob/test.root.20180624.221303.993150/output
 Counters: 131
         Browsers
                 "Hot%20Wallpapers=1
@@ -118,15 +113,15 @@ Counters: 131
         File Input Format Counters
                 Bytes Read=3055115
         File Output Format Counters
-                Bytes Written=21995
+                Bytes Written=38719
         File System Counters
-                FILE: Number of bytes read=38036
-                FILE: Number of bytes written=547797
+                FILE: Number of bytes read=300477
+                FILE: Number of bytes written=1072691
                 FILE: Number of large read operations=0
                 FILE: Number of read operations=0
                 FILE: Number of write operations=0
                 HDFS: Number of bytes read=3055341
-                HDFS: Number of bytes written=21995
+                HDFS: Number of bytes written=38719
                 HDFS: Number of large read operations=0
                 HDFS: Number of read operations=9
                 HDFS: Number of write operations=2
@@ -134,35 +129,35 @@ Counters: 131
                 Data-local map tasks=2
                 Launched map tasks=2
                 Launched reduce tasks=1
-                Total megabyte-milliseconds taken by all map tasks=3369000
-                Total megabyte-milliseconds taken by all reduce tasks=748750
-                Total time spent by all map tasks (ms)=13476
-                Total time spent by all maps in occupied slots (ms)=13476
-                Total time spent by all reduce tasks (ms)=2995
-                Total time spent by all reduces in occupied slots (ms)=2995
-                Total vcore-milliseconds taken by all map tasks=13476
-                Total vcore-milliseconds taken by all reduce tasks=2995
+                Total megabyte-milliseconds taken by all map tasks=3338000
+                Total megabyte-milliseconds taken by all reduce tasks=789000
+                Total time spent by all map tasks (ms)=13352
+                Total time spent by all maps in occupied slots (ms)=13352
+                Total time spent by all reduce tasks (ms)=3156
+                Total time spent by all reduces in occupied slots (ms)=3156
+                Total vcore-milliseconds taken by all map tasks=13352
+                Total vcore-milliseconds taken by all reduce tasks=3156
         Map-Reduce Framework
-                CPU time spent (ms)=2910
+                CPU time spent (ms)=3370
                 Combine input records=13501
                 Combine output records=1749
                 Failed Shuffles=0
-                GC time elapsed (ms)=551
+                GC time elapsed (ms)=450
                 Input split bytes=226
                 Map input records=13501
-                Map output bytes=252547
-                Map output materialized bytes=38042
+                Map output bytes=2241438
+                Map output materialized bytes=300483
                 Map output records=13501
                 Merged Map outputs=2
-                Physical memory (bytes) snapshot=545746944
+                Physical memory (bytes) snapshot=554061824
                 Reduce input groups=1615
                 Reduce input records=1749
                 Reduce output records=1615
-                Reduce shuffle bytes=38042
+                Reduce shuffle bytes=300483
                 Shuffled Maps =2
                 Spilled Records=3498
-                Total committed heap usage (bytes)=258998272
-                Virtual memory (bytes) snapshot=6416134144
+                Total committed heap usage (bytes)=265289728
+                Virtual memory (bytes) snapshot=6412476416
         Shuffle Errors
                 BAD_ID=0
                 CONNECTION=0
@@ -170,6 +165,7 @@ Counters: 131
                 WRONG_LENGTH=0
                 WRONG_MAP=0
                 WRONG_REDUCE=0
-job output is in hdfs:///user/raj_ops/output
-Removing HDFS temp directory hdfs:///user/root/tmp/mrjob/test.root.20180624.084839.416145...
-Removing temp directory /tmp/test.root.20180624.084839.416145...
+job output is in hdfs:///user/root/tmp/mrjob/test.root.20180624.221303.993150/output
+Streaming final output from hdfs:///user/root/tmp/mrjob/test.root.20180624.221303.993150/output...
+Removing HDFS temp directory hdfs:///user/root/tmp/mrjob/test.root.20180624.221303.993150...
+Removing temp directory /tmp/test.root.20180624.221303.993150...

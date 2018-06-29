@@ -4,9 +4,26 @@ some log file.
 """
 
 from mrjob.job import MRJob
-from mrjob.protocol import RawValueProtocol
+from mrjob.protocol import RawValueProtocol, PickleProtocol
 import re
 import user_agents
+from operator import attrgetter
+
+
+class ValueFormat:
+    def __init__(self, byte_count, number):
+        self.byte_count = byte_count
+        self.number = number
+
+    def __repr__(self):
+        return '({}, {})'.format(self.byte_count, self.number)
+
+    def __eq__(self, other):
+        return self.byte_count == other.byte_count and self.number == other.number
+
+    def __add__(self, other):
+        if isinstance(other, ValueFormat):
+            return ValueFormat(self.byte_count + other.byte_count, self.number + other.number)
 
 
 class BytesCounterJob(MRJob):
@@ -14,7 +31,12 @@ class BytesCounterJob(MRJob):
     This job calculates the average and total amounts of bytes of traffic for each ip adress based of come log file.
     """
 
+    REGEXP = re.compile(
+        "(?P<ip>ip\S*) (- -) (\[.*\]) (\".*?\") (\S*) (?P<byte_count>\S*) (\".*?\") (?P<user_agent>\".*?\")")
+
     OUTPUT_PROTOCOL = RawValueProtocol
+
+    INTERNAL_PROTOCOL = PickleProtocol
 
     def hadoop_output_format(self):
         """
@@ -51,39 +73,33 @@ class BytesCounterJob(MRJob):
         corresponding counter).
         """
         if line:
-            regexp = "(ip\S*) (- -) (\[.*\]) (\".*?\") (\S*) (\S*) (\".*?\") (\".*?\")"
-            if re.fullmatch(regexp, line):
-                groups = re.split(regexp, line)
-                user_agent = user_agents.parse(groups[8]).browser.family
-                if _ != 'test_mod':
-                    self.increment_counter('Browsers', user_agent, 1)
-                ip = groups[1]
+            if re.fullmatch(self.REGEXP, line):
+                line_values = re.match(self.REGEXP, line).groupdict()
+                user_agent = user_agents.parse(line_values['user_agent']).browser.family
+                self.increment_counter('Browsers', user_agent, 1)
+                ip = line_values['ip']
                 try:
-                    byte_count = int(groups[6])
+                    byte_count = int(line_values['byte_count'])
                 except ValueError:
                     byte_count = 0
-                yield ip, (byte_count, 1)
+                yield ip, ValueFormat(byte_count, 1)
             else:
-                if _ != 'test_mod':
-                    self.increment_counter('ERRORS', 'ERRORS', 1)
+                self.increment_counter('ERRORS', 'ERRORS', 1)
 
     def combiner(self, key, values):
         """
         This is a combiner function of the job, which unites the results recieved from some mappers.
         """
-        values = list(values)
-        yield key, (sum([value[0] for value in values]), len(values))
+        yield key, sum(values, ValueFormat(0, 0))
 
     def reducer(self, key, values):
         """
         This is a reducer function of the job, which calculates the average amount of bytes per request and total bytes
         of traffic for each ip address.
         """
-        values = list(values)
-        total = sum([value[0] for value in values])
-        num = sum([value[1] for value in values])
-        avg = total / num if num != 0 else 0
-        yield None, "{},{},{}".format(key, avg, total)
+        result = sum(values, ValueFormat(0, 0))
+        avg = result.byte_count / result.number if result.number != 0 else 0
+        yield None, "{},{},{}".format(key, avg, result.byte_count)
 
 
 if __name__ == '__main__':
