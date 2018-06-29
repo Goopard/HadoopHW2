@@ -7,20 +7,10 @@ from mrjob.job import MRJob
 from mrjob.protocol import RawValueProtocol, PickleProtocol
 import re
 import user_agents
-from operator import attrgetter
+from collections import namedtuple
 
 
-class ValueFormat:
-    def __init__(self, byte_count, number):
-        self.byte_count = byte_count
-        self.number = number
-
-    def __repr__(self):
-        return '({}, {})'.format(self.byte_count, self.number)
-
-    def __eq__(self, other):
-        return self.byte_count == other.byte_count and self.number == other.number
-
+class ValueFormat(namedtuple('ValueFormat', ['byte_count', 'number'])):
     def __add__(self, other):
         if isinstance(other, ValueFormat):
             return ValueFormat(self.byte_count + other.byte_count, self.number + other.number)
@@ -73,7 +63,7 @@ class BytesCounterJob(MRJob):
         corresponding counter).
         """
         if line:
-            if re.fullmatch(self.REGEXP, line):
+            try:
                 line_values = re.match(self.REGEXP, line).groupdict()
                 user_agent = user_agents.parse(line_values['user_agent']).browser.family
                 self.increment_counter('Browsers', user_agent, 1)
@@ -83,7 +73,7 @@ class BytesCounterJob(MRJob):
                 except ValueError:
                     byte_count = 0
                 yield ip, ValueFormat(byte_count, 1)
-            else:
+            except AttributeError:
                 self.increment_counter('ERRORS', 'ERRORS', 1)
 
     def combiner(self, key, values):
